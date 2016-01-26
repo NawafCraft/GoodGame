@@ -4,7 +4,11 @@ namespace GoodGame;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
-use pocketmine\event\Entity\EntityShootBowEvent;
+use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerDeathEvent;
+use pocketmine\event\player\PlayerDeathEvent;
+use pocketmine\event\player\PlayerDeathEvent;
+
 use pocketmine\level\sound\FizzSound;
 use pocketmine\level\sound\ClickSound;
 use pocketmine\level\particle\DustParticle;
@@ -34,7 +38,7 @@ class Main extends PluginBase implements Listener{
                 $event->getPlayer()->sendMessage("§7================");
         }
         
-        public function OnDeath(PlayerDeathEvent $event) {
+        public function OnJoin(PlayerJoinEvent $event) {
         	$event->getlevel()->addSound(new FizzSound($player));
                 $event->sendMessage("§a Welcome to the §bAWESOME §eServer!");
                 $event->getlevel()->addParticle(new Dustparticle($player));//test :D
