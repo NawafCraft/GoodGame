@@ -8,7 +8,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerDeathEvent;
-
+use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\level\sound\FizzSound;
 use pocketmine\level\sound\ClickSound;
 use pocketmine\level\particle\DustParticle;
@@ -45,11 +45,18 @@ class Main extends PluginBase implements Listener{
         }
         
         public function onHold(PlayerItemHeldEvent $event){
-            if($event->getItem()->getId() == 276){
+            if($event->getItem()->getId() == 46){
                 $event->getPlayer()->sendPopup(TextFormat:: AQUA . "Your Inventory Clearing...");
                 $event->getPlayer()->getInventory()->clearAll();
             }
-            if($event->getItem()->getId() == 280){
-                $event->getPlayer()->sendPopup("¬ßdMelting Wand");
+            if($event->getItem()->getId() == 347){
+                $event->getPlayer()->sendPopup("§aReturning to Hub...");
+                $event->getPlayer()->teleport(
             }
+        }
+        
+        public function OnDrop(PlayerDropItemEvent $event) {
+                $event->getPlayer()->sendTip("§Dropping Item..");
+                $event->getLevel()->addSound(new PopSound($player));
+                $event-<getPlayer()->addParticle(new Fl)
         }
