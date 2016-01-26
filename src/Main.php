@@ -1,6 +1,6 @@
 <?php
 
-namespace ArrowParticle;
+namespace GoodGame;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
@@ -12,29 +12,32 @@ use pocketmine\player;
 
 class Main extends PluginBase implements Listener{
 
+        public function OnLoad() {
+                $this->getLogger()->info("§GoodGame §ePlugin Loading...!");
+        }
+        
         public function OnEnable() {
-                $this->getLogger()->info("§dArrowParticle §aPlugin Has been Enabled!");
+                $this->getLogger()->info("§GoodGame §aPlugin Has been Enabled!");
         }
         
         public function OnDisable() {
-                $this->getLogger()->info("§dArrowParticle §cPlugin Has Benn Disabled!");
+                $this->getLogger()->info("§GoodGame §cPlugin Has Benn Disabled!");
         }
-        
-        public function onsb(EntityShootBowEvent $ev) {
-	        if ($ev->isCancelled()) return;
-	        $damage = $ev->getDamage();
-	        $player = $ev->getEntity();
-	        if (!($player instanceof Player)) return;
-	              
-	        for ($i=0;$i<$damage;$i++) {
-		        $player->getLevel()->addParticle(new DustParticle(self::randVector($player),(mt_rand()/mt_getrandmax())*2));
-		        $player->getLevel()->addSound(new ClickSound($player));
-	              }
+        ////////////
+       ///EVENTS///
+      ////////////
+      
+        public function OnDeath(PlayerDeathEvent $event) {
+        	$event->getlevel()->addSound(new FizzSound($player));
+                $event->getPlayer()->sendMessage("§7================");
+                $event->getPlayer()->sendMessage("§7==§cYOU DIED!§7==");
+                $event->getPlayer()->sendMessage("§7================");
         }
         
         public function OnDeath(PlayerDeathEvent $event) {
         	$event->getlevel()->addSound(new FizzSound($player));
-                $event->sendMessage("§c Birisi öldü :( ?");
+                $event->sendMessage("§a Welcome to the §bAWESOME §eServer!");
+                $event->getlevel()->addParticle(new Dustparticle($player));//test :D
         }
-}
-// this plugin not tested!
+        
+        
