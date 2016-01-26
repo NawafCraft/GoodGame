@@ -6,12 +6,14 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerDeathEvent;
+use pocketmine\event\player\PlayerChatEvent;
+use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\level\sound\FizzSound;
 use pocketmine\level\sound\ClickSound;
+use pocketmine\level\sound\PopSound;
 use pocketmine\level\particle\DustParticle;
+use pocketmine\level\particle\FloatingTextParticle;
 use pocketmine\player;
 
 class Main extends PluginBase implements Listener{
@@ -50,13 +52,19 @@ class Main extends PluginBase implements Listener{
                 $event->getPlayer()->getInventory()->clearAll();
             }
             if($event->getItem()->getId() == 347){
-                $event->getPlayer()->sendPopup("§aReturning to Hub...");
-                $event->getPlayer()->teleport(
+                $event->getPlayer()->sendPopup("§a(Returning to Hub...");
+                //$event->getPlayer()->teleport coming soon..
+                
             }
         }
         
         public function OnDrop(PlayerDropItemEvent $event) {
                 $event->getPlayer()->sendTip("§Dropping Item..");
                 $event->getLevel()->addSound(new PopSound($player));
-                $event-<getPlayer()->addParticle(new Fl)
+                $event-<getPlayer()->addParticle(new FloatingTextParticle($player));
         }
+        
+        public function OnChat(PlayerChatEvent $event){
+                $event->getLevel()->addSound(new ClickSound);
+        }
+}
