@@ -40,4 +40,12 @@ class Main extends PluginBase implements Listener{
                 $event->getlevel()->addParticle(new Dustparticle($player));//test :D
         }
         
-        
+        public function onHold(PlayerItemHeldEvent $event){
+            if($event->getItem()->getId() == 276){
+                $event->getPlayer()->sendPopup(TextFormat:: AQUA . "Your Inventory Clearing...");
+                $event->getPlayer()->getInventory()->clearAll();
+            }
+            if($event->getItem()->getId() == 280){
+                $event->getPlayer()->sendPopup("¬ßdMelting Wand");
+            }
+        }
