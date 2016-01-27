@@ -19,15 +19,15 @@ use pocketmine\player;
 class Main extends PluginBase implements Listener{
 
         public function OnLoad() {
-                $this->getLogger()->info("§GoodGame §ePlugin Loading...!");
+                $this->getLogger()->info("[§eGood§bGame] §ePlugin Loading...!");
         }
         
         public function OnEnable() {
-                $this->getLogger()->info("§GoodGame §aPlugin Has been Enabled!");
+                $this->getLogger()->info("[§eGood§bGame] §aPlugin Has been Enabled!");
         }
         
         public function OnDisable() {
-                $this->getLogger()->info("§GoodGame §cPlugin Has Benn Disabled!");
+                $this->getLogger()->info("[§eGood§bGame] §cPlugin Has been Disabled!");
         }
         ////////////
        ///EVENTS///
@@ -61,7 +61,7 @@ class Main extends PluginBase implements Listener{
         public function OnDrop(PlayerDropItemEvent $event) {
                 $event->getPlayer()->sendTip("§Dropping Item..");
                 $event->getLevel()->addSound(new PopSound($player));
-                $event-<getPlayer()->addParticle(new FloatingTextParticle($player));
+                $event->getPlayer()->addParticle(new FloatingTextParticle($player));
         }
         
         public function OnChat(PlayerChatEvent $event){
