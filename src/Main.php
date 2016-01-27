@@ -42,7 +42,7 @@ class Main extends PluginBase implements Listener{
         
         public function OnJoin(PlayerJoinEvent $event) {
         	$event->getlevel()->addSound(new FizzSound($player));
-                $event->sendMessage("§a Welcome to the §bAWESOME §eServer!");
+                $event->sendPopUp("§a Welcome to the §bAWESOME §eServer!");
                 $event->getlevel()->addParticle(new Dustparticle($player));//test :D
         }
         
