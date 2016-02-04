@@ -67,7 +67,7 @@ class Main extends PluginBase implements Listener
         
         public function OnDrop(PlayerDropItemEvent $event) {
                 $player = $event->getPlayer();
-                $player->getPlayer()->sendTip("§Dropping Item..");
+                $player->sendTip("§Dropping Item..");
                 $player->getLevel()->addSound(new PopSound($player));
                 $player->getLevel()->addParticle(new FloatingTextParticle($player));
         }
