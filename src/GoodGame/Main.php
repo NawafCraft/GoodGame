@@ -14,16 +14,20 @@ use pocketmine\level\sound\ClickSound;
 use pocketmine\level\sound\PopSound;
 use pocketmine\level\particle\DustParticle;
 use pocketmine\level\particle\FloatingTextParticle;
-use pocketmine\player;
+use pocketmine\Player;
+use pocketmine\Level;
+use pocketmine\level\Position;
+use pocketmine\math\Vector3;
 
-class Main extends PluginBase implements Listener{
-
-        public function OnLoad() {
-                $this->getLogger()->info("[§eGood§bGame] §ePlugin Loading...!");
-        }
+class Main extends PluginBase implements Listener
+{
         
         public function OnEnable() {
                 $this->getLogger()->info("[§eGood§bGame] §aPlugin Has been Enabled!");
+        }
+        
+        public function OnLoad() {
+                $this->getLogger()->info("[§eGood§bGame] §ePlugin Loading...!");
         }
         
         public function OnDisable() {
@@ -34,37 +38,42 @@ class Main extends PluginBase implements Listener{
       ////////////
       
         public function OnDeath(PlayerDeathEvent $event) {
-        	$event->getlevel()->addSound(new FizzSound($player));
-                $event->getPlayer()->sendMessage("§7================");
-                $event->getPlayer()->sendMessage("§7==§cYOU DIED!§7==");
-                $event->getPlayer()->sendMessage("§7================");
+                $player = $event->getPlayer();
+        	$player->getlevel()->addSound(new FizzSound($player));
+                $player->sendMessage("§7================");
+                $player->sendMessage("§7==§cYOU DIED!§7==");
+                $player->sendMessage("§7================");
         }
         
         public function OnJoin(PlayerJoinEvent $event) {
-        	$event->getlevel()->addSound(new FizzSound($player));
-                $event->sendPopUp("§a Welcome to the §bAWESOME §eServer!");
-                $event->getlevel()->addParticle(new Dustparticle($player));//test :D
+                $player = $event->getPlayer();
+        	$player->getlevel()->addSound(new FizzSound($player));
+                $player->sendPopUp("§a Welcome to the §bAWESOME §eServer!");
+                $player->getlevel()->addParticle(new Dustparticle($player));//test :D
         }
         
         public function onHold(PlayerItemHeldEvent $event){
-            if($event->getItem()->getId() == 46){
-                $event->getPlayer()->sendPopup(TextFormat:: AQUA . "Your Inventory Clearing...");
-                $event->getPlayer()->getInventory()->clearAll();
+                $player = $event->getPlayer();
+            if($player->getItem()->getId() == 46){
+                $player->sendPopup(TextFormat:: AQUA . "Your Inventory Clearing...");
+                $player->getInventory()->clearAll();
             }
-            if($event->getItem()->getId() == 347){
-                $event->getPlayer()->sendPopup("§a(Returning to Hub...");
-                //$event->getPlayer()->teleport coming soon..
+            if($player->getItem()->getId() == 347){
+                $player->sendPopup("§a(Returning to Hub...");
+                //$player->teleport coming soon..
                 
             }
         }
         
         public function OnDrop(PlayerDropItemEvent $event) {
-                $event->getPlayer()->sendTip("§Dropping Item..");
-                $event->getLevel()->addSound(new PopSound($player));
-                $event->getPlayer()->addParticle(new FloatingTextParticle($player));
+                $player = $event->getPlayer();
+                $player->getPlayer()->sendTip("§Dropping Item..");
+                $player->getLevel()->addSound(new PopSound($player));
+                $player->getLevel()->addParticle(new FloatingTextParticle($player));
         }
         
         public function OnChat(PlayerChatEvent $event){
-                $event->getLevel()->addSound(new ClickSound);
+                $player = $event->getPlayer();
+                $player->getLevel()->addSound(new ClickSound($player));
         }
 }
