@@ -11,6 +11,7 @@ use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\level\sound\FizzSound;
 use pocketmine\level\sound\ClickSound;
+use pocketmine\level\sound\BatSound;
 use pocketmine\level\sound\PopSound;
 use pocketmine\level\particle\DustParticle;
 use pocketmine\level\particle\FloatingTextParticle;
@@ -22,7 +23,7 @@ use pocketmine\math\Vector3;
 class Main extends PluginBase implements Listener
 {
         
-        public function OnEnable() {
+        public function OnEnable(){
                 $this->getLogger()->info("[§eGood§bGame] §aPlugin Has been Enabled!");
         }
         
@@ -37,19 +38,25 @@ class Main extends PluginBase implements Listener
        ///EVENTS///
       ////////////
       
-        public function OnDeath(PlayerDeathEvent $event) {
+        public function OnDeath(PlayerDeathEvent $event){
                 $player = $event->getPlayer();
-        	$player->getlevel()->addSound(new FizzSound($player));
+        	$player->getLevel()->addSound(new FizzSound($player));
                 $player->sendMessage("§7================");
                 $player->sendMessage("§7==§cYOU DIED!§7==");
                 $player->sendMessage("§7================");
         }
         
-        public function OnJoin(PlayerJoinEvent $event) {
+        public function OnRespawn(PlayerRespawnEvent $event){
                 $player = $event->getPlayer();
-        	$player->getlevel()->addSound(new FizzSound($player));
-                $player->sendPopUp("§a Welcome to the §bAWESOME §eServer!");
-                $player->getlevel()->addParticle(new Dustparticle($player));//test :D
+        	$player->getLevel()->addSound(new BatSound($player));
+        	$player->sendMessage("§aRespawned!");
+        }
+        
+        public function OnJoin(PlayerJoinEvent $event){
+                $player = $event->getPlayer();
+        	$player->getLevel()->addSound(new BatSound($player));
+                $player->sendTip("§a Welcome to the §bAWESOME §eServer!");
+                $player->getlevel()->addParticle(new Dustparticle(0, 0, 0));//but not work particles in players! :D
         }
         
         public function onHold(PlayerItemHeldEvent $event){
@@ -69,11 +76,12 @@ class Main extends PluginBase implements Listener
                 $player = $event->getPlayer();
                 $player->sendTip("§Dropping Item..");
                 $player->getLevel()->addSound(new PopSound($player));
-                $player->getLevel()->addParticle(new FloatingTextParticle($player));
+                $player->getLevel()->addParticle(new FlameParticle(0, 0, 0));
         }
         
         public function OnChat(PlayerChatEvent $event){
                 $player = $event->getPlayer();
-                $player->getLevel()->addSound(new ClickSound($player));
+                $player->getLevel()->addSound(new ClickSound());
+                $player->sendPopUp("§aChatting..");
         }
 }
