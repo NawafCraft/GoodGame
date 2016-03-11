@@ -56,7 +56,7 @@ class Main extends PluginBase implements Listener
                 $player = $event->getPlayer();
         	$player->getLevel()->addSound(new BatSound($player));
                 $player->sendTip("§a Welcome to the §bAWESOME §eServer!");
-                $player->getlevel()->addParticle(new Dustparticle(0, 0, 0));//but not work particles in players! :D
+                $player->getlevel()->addParticle(new DustParticle($player));
         }
         
         public function onHold(PlayerItemHeldEvent $event){
@@ -76,7 +76,7 @@ class Main extends PluginBase implements Listener
                 $player = $event->getPlayer();
                 $player->sendTip("§Dropping Item..");
                 $player->getLevel()->addSound(new PopSound($player));
-                $player->getLevel()->addParticle(new FlameParticle(0, 0, 0));
+                $player->getLevel()->addParticle(new FlameParticle($player));
         }
         
         public function OnChat(PlayerChatEvent $event){
